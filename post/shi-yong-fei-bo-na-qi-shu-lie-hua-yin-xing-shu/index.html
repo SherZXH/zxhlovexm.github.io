@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" >
 
-<title>使用斐波那契数列画银杏树 | zxh</title>
+<title>用斐波那契数列画银杏树 | zxh</title>
 <meta name="description" content="Gridea ">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="shortcut icon" href="https://zxhlovexm.github.io/favicon.ico?v=1583760705123">
+<link rel="shortcut icon" href="https://zxhlovexm.github.io/favicon.ico?v=1583762235550">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
@@ -81,233 +81,234 @@
       <div class="sm-12 md-8 col">
         <div class="paper">
           <article class="article">
-            <h1>使用斐波那契数列画银杏树</h1>
+            <h1>用斐波那契数列画银杏树</h1>
             <p class="article-meta">
               2020-03-09
               
             </p>
             
-              <img src="https://zxhlovexm.github.io/post-images/shi-yong-fei-bo-na-qi-shu-lie-hua-yin-xing-shu.png" alt="使用斐波那契数列画银杏树">
+              <img src="https://zxhlovexm.github.io/post-images/shi-yong-fei-bo-na-qi-shu-lie-hua-yin-xing-shu.png" alt="用斐波那契数列画银杏树">
             
             <div class="post-content">
-              <p>本人从https://mp.weixin.qq.com/s/4qGAMKpItY6JMaXx0ZFphg 处学习了如何使用斐波那契数列画银杏树，再次感谢大佬的分享，不过在学习过程中，我发现了两个小问题，于是利用本篇文章来记述一下问题解决的过程，以备不时之需.</p>
+              <p>本人从<a href="https://mp.weixin.qq.com/s/4qGAMKpItY6JMaXx0ZFphg" target="_blank">教室工作室</a> 处学习了如何使用斐波那契数列画银杏树，再次感谢大佬的分享，不过在学习过程中，我发现了两个小问题，于是利用本篇文章来记述一下问题解决的过程，以备不时之需.</p>
 <p>首先，文章中提到画银杏树的时候首先需要画银杏叶：</p>
 <p><img src="https://zxhlovexm.github.io/post-images/1583759509961.png" alt="" loading="lazy"><br>
-但是可以发现上述红圈处银杏叶填充时超出边界了，这是由于文章原作者使用turtle画银杏叶时的流程所致的，示意图如下：<br>
+但是可以发现上述<strong>红圈处</strong>银杏叶填充时超出边界了，这是由于文章原作者使用turtle画银杏叶时的流程所致的，示意图如下：<br>
 <img src="https://zxhlovexm.github.io/post-images/1583759515197.png" alt="" loading="lazy"><br>
 如上图中所标记的顺序，原作者依次画了叶柄，左叶扇，右叶扇和叶顶部分，但是由于turtle的弧线函数是以圆的半径和弧线的度数作为参数进行描绘的，所以当最后不是一个封闭图形时就会有超出边界的填充，据此我进行了改进，示意图如下：<br>
 <img src="https://zxhlovexm.github.io/post-images/1583759519745.png" alt="" loading="lazy"><br>
-如上图中所标记的顺序，我改进后的流程为：叶柄-&gt;右叶扇-&gt;叶顶-&gt;左叶扇，可以看到如此一来画出的银杏叶就比之前的效果好多了。</p>
+如上图中所标记的顺序，我改进后的流程为：<strong>叶柄-&gt;右叶扇-&gt;叶顶-&gt;左叶扇</strong>，可以看到如此一来画出的银杏叶就比之前的效果好多了。</p>
 <p>其次，对于文章中提到的第二部分--画树干和树枝时使用到了斐波那契数列，这也是原文章的核心部分，具体内容在这里不过多阐述，链接在最上部，这里着重记述一下问题所在：<br>
 <img src="https://zxhlovexm.github.io/post-images/1583759528070.png" alt="" loading="lazy"><br>
-可以看到原作者使用传统的迭代法来生成斐波那契数列，这就存在当项数增多时生成速度慢效率低下的问题，所以针对这一点我查阅了相关资料，发现使用公式法时该算法的时间复杂度可以降至O(n)，这样一来算法的速度便可以勉强接受了，具体斐波那契数列的推导过程如下：<br>
+可以看到原作者使用<strong>传统的迭代法</strong>来生成斐波那契数列，这就存在当项数增多时生成速度慢效率低下的问题，所以针对这一点我查阅了相关资料，发现使用<strong>公式法</strong>时该算法的时间复杂度可以降至<strong>O(n)</strong>，这样一来算法的速度便可以勉强接受了，具体斐波那契数列的推导过程如下：<br>
 <img src="https://zxhlovexm.github.io/post-images/1583759533086.jpg" alt="" loading="lazy"></p>
-<p>最后，我将改进后的代码放在下面以供分享交流：<br>
-import turtle as lv<br>
-import random<br>
-from math import *<br>
-#---画银杏叶-------start-------<br>
-def leaf(x,y,node):<br>
-til=lv.heading()<br>
-i=random.random()</p>
-<pre><code> #画银杏叶柄
- an=random.randint(10,180)
- ye=random.randint(6,9)/10
- lv.color(ye,ye*0.9,0)
- lv.fillcolor(ye+0.1,ye+0.05,0)
- lv.pensize(1)
- #lv.color('orange','yellow')
- #lv.pendown()
- lv.setheading(an+90)
- lv.forward(18*i)
-
-
- lv.begin_fill()
- #画银杏叶右叶扇面
- lv.circle(-12*i,120)
-
-
- #画银杏叶顶端
- lv.setheading(an+100)
- lv.circle(18*i,160)
-
- #画银杏叶左叶扇面
- lv.setheading(an+90-60)
- lv.circle(-12*i,120)
-
- lv.end_fill()
-
- lv.goto(x,y)
- lv.setheading(til)
- lv.pensize(node/2+1)
- #---画银杏叶-------end-------#
-
-
-#---画银杏树干和树枝-------start-------#
-
-#斐波那契数(迭代法）--&gt;（O(n^2))
-def Fibonacci_Recursion_tool(n):
-    if n&lt;=0:
-        return 0
-    elif n==1:
-        return 1
-    else:
-        return Fibonacci_Recursion_tool(n-1)+Fibonacci_Recursion_tool(n-2)
-
-#计算组合数
-def com(n,i):
-    i=min(i,n-i)
-    a=1
-    b=1
-    for m in range(1,i+1):
-      a=a*m
-      b=b*(n-m+1)
-    return b/a
+<p>最后，我将<strong>改进后的代码</strong>放在下面以供分享交流：</p>
+<pre><code>    import turtle as lv
+    import random
+    from math import *
+    #---画银杏叶-------start-------
+    def leaf(x,y,node):
+     til=lv.heading()
+     i=random.random()
     
-#斐波那契数(公式法）--&gt;（O(n))
-def Fibonacci_Recursion_tool_2(n):
-    if n&lt;=0:
-        return 0
-    elif n==1:
-        return 1
-    else:
-        sum=0
-        for i in range(1,n+1,2):
-            sum=sum+com(n,i)*pow(5,(i-1)/2)
-        return int(sum/pow(2,n-1))
-
-#斐波那契数列
-def Fibonacci_Recursion(n):
-    result_list=[]
-    for i in range(1,n+3):
-        result_list.append(Fibonacci_Recursion_tool_2(i))
-    return result_list
-
-print(Fibonacci_Recursion(10))
-
-def draw(node,length,level,yu,button):
-    lv.pendown()
-    t = cos(radians(lv.heading()+5)) / 8 + 0.25
-    lv.pencolor(t*1.6, t*1.2, t*1.4)
-    #lv.pencolor(&quot;gray&quot;)
-    lv.pensize(node/1.2)        
-    x = random.randint(0, 10)
-    #lv.forward(length)  # 画树枝
-    #yu[level] = yu[level] - 1
-
-    if  level==top and x==5 :
-       lv.forward(length)  # 画树枝
-       yu[level] = yu[level] - 1
-       c=random.randint(2,10)
-       for i in range(1,c):
-           leaf(lv.xcor(), lv.ycor(),node)
-           # 添加0.3倍的飘落叶子
-           if random.random() &gt;0.5:
-               lv.penup()
-               # 飘落
-               t1 = lv.heading()
-               an1 = -40 + random.random() * 40
-               lv.setheading(an1)
-               dis = int(800 * random.random() * 0.5 + 400 * random.random() * 0.3 + 200 * random.random() * 0.2)
-               lv.forward(dis)
-               lv.setheading(t1)
-
-               lv.right(90)
-               # 画叶子
-               leaf(lv.xcor(), lv.ycor(), node)
-               lv.left(90)
-               # 返回
-               t2 = lv.heading()
-               lv.setheading(an1)
-               lv.backward(dis)
-               lv.setheading(t2)
-
-
-    elif level==top and x!=5 :
-        lv.penup()
-        lv.forward(length)
-        #leaf(lv.xcor(),lv.ycor())# jump
-
-    elif level&gt;3 and (x&gt;6) :
+     #画银杏叶柄
+     an=random.randint(10,180)
+     ye=random.randint(6,9)/10
+     lv.color(ye,ye*0.9,0)
+     lv.fillcolor(ye+0.1,ye+0.05,0)
+     lv.pensize(1)
+     #lv.color('orange','yellow')
+     #lv.pendown()
+     lv.setheading(an+90)
+     lv.forward(18*i)
+    
+    
+     lv.begin_fill()
+     #画银杏叶右叶扇面
+     lv.circle(-12*i,120)
+    
+    
+     #画银杏叶顶端
+     lv.setheading(an+100)
+     lv.circle(18*i,160)
+    
+     #画银杏叶左叶扇面
+     lv.setheading(an+90-60)
+     lv.circle(-12*i,120)
+    
+     lv.end_fill()
+    
+     lv.goto(x,y)
+     lv.setheading(til)
+     lv.pensize(node/2+1)
+     #---画银杏叶-------end-------#
+    
+    
+    #---画银杏树干和树枝-------start-------#
+    
+    #斐波那契数(迭代法）--&gt;（O(n^2))
+    def Fibonacci_Recursion_tool(n):
+        if n&lt;=0:
+            return 0
+        elif n==1:
+            return 1
+        else:
+            return Fibonacci_Recursion_tool(n-1)+Fibonacci_Recursion_tool(n-2)
+    
+    #计算组合数
+    def com(n,i):
+        i=min(i,n-i)
+        a=1
+        b=1
+        for m in range(1,i+1):
+          a=a*m
+          b=b*(n-m+1)
+        return b/a
+        
+    #斐波那契数(公式法）--&gt;（O(n))
+    def Fibonacci_Recursion_tool_2(n):
+        if n&lt;=0:
+            return 0
+        elif n==1:
+            return 1
+        else:
+            sum=0
+            for i in range(1,n+1,2):
+                sum=sum+com(n,i)*pow(5,(i-1)/2)
+            return int(sum/pow(2,n-1))
+    
+    #斐波那契数列
+    def Fibonacci_Recursion(n):
+        result_list=[]
+        for i in range(1,n+3):
+            result_list.append(Fibonacci_Recursion_tool_2(i))
+        return result_list
+    
+    print(Fibonacci_Recursion(10))
+    
+    def draw(node,length,level,yu,button):
         lv.pendown()
-        lv.forward(length)
-        c = random.randint(4, 6)
-       # leaf(lv.xcor(), lv.ycor())
-        for i in range(3, c):
-            leaf(lv.xcor(), lv.ycor(),node)
-        leaf(lv.xcor(), lv.ycor(),node)
-        button=1# jump&quot;&quot;&quot;
-    else:
-        lv.forward(length)  # 画树枝
-        yu[level] = yu[level] -1
-    if node&gt;0 and button==0:
+        t = cos(radians(lv.heading()+5)) / 8 + 0.25
+        lv.pencolor(t*1.6, t*1.2, t*1.4)
+        #lv.pencolor(&quot;gray&quot;)
+        lv.pensize(node/1.2)        
+        x = random.randint(0, 10)
+        #lv.forward(length)  # 画树枝
+        #yu[level] = yu[level] - 1
     
-        # 计算右侧分支偏转角度,在固定角度偏转增加一个随机的偏移量
-        right = random.random() * 5 + 17
-        # 计算左侧分支偏转角度,在固定角度偏转增加一个随机的偏移量
-        left = random.random() * 20 + 19
-        # 计算下一级分支的长度
-        child_length = length * (random.random() * 0.25 + 0.7)
-        # 右转一定角度,画右分支
-        r=random.randint(0, 1)
-        print(r)
-        if r==1:
-          lv.right(right)
-          level = level + 1
-          print(&quot;level&quot;,level)
+        if  level==top and x==5 :
+           lv.forward(length)  # 画树枝
+           yu[level] = yu[level] - 1
+           c=random.randint(2,10)
+           for i in range(1,c):
+               leaf(lv.xcor(), lv.ycor(),node)
+               # 添加0.3倍的飘落叶子
+               if random.random() &gt;0.5:
+                   lv.penup()
+                   # 飘落
+                   t1 = lv.heading()
+                   an1 = -40 + random.random() * 40
+                   lv.setheading(an1)
+                   dis = int(800 * random.random() * 0.5 + 400 * random.random() * 0.3 + 200 * random.random() * 0.2)
+                   lv.forward(dis)
+                   lv.setheading(t1)
+    
+                   lv.right(90)
+                   # 画叶子
+                   leaf(lv.xcor(), lv.ycor(), node)
+                   lv.left(90)
+                   # 返回
+                   t2 = lv.heading()
+                   lv.setheading(an1)
+                   lv.backward(dis)
+                   lv.setheading(t2)
+    
+    
+        elif level==top and x!=5 :
+            lv.penup()
+            lv.forward(length)
+            #leaf(lv.xcor(),lv.ycor())# jump
+    
+        elif level&gt;3 and (x&gt;6) :
+            lv.pendown()
+            lv.forward(length)
+            c = random.randint(4, 6)
+           # leaf(lv.xcor(), lv.ycor())
+            for i in range(3, c):
+                leaf(lv.xcor(), lv.ycor(),node)
+            leaf(lv.xcor(), lv.ycor(),node)
+            button=1# jump&quot;&quot;&quot;
         else:
-          lv.left(right)
-          level = level + 1
-          print(&quot;level&quot;, level)
-        draw(node - 1, child_length,level,yu,button)
-
-        yu[level] = yu[level] +1
-
-        if yu[level]&gt;1:
-            # 左转一定角度，画左分支
-
+            lv.forward(length)  # 画树枝
+            yu[level] = yu[level] -1
+        if node&gt;0 and button==0:
+        
+            # 计算右侧分支偏转角度,在固定角度偏转增加一个随机的偏移量
+            right = random.random() * 5 + 17
+            # 计算左侧分支偏转角度,在固定角度偏转增加一个随机的偏移量
+            left = random.random() * 20 + 19
+            # 计算下一级分支的长度
+            child_length = length * (random.random() * 0.25 + 0.7)
+            # 右转一定角度,画右分支
+            r=random.randint(0, 1)
+            print(r)
             if r==1:
-               lv.left(right + left)
-               draw(node - 1, child_length, level, yu,button)
-               # 将偏转的角度，转回
-               lv.right(left)
-               print(&quot;yu&quot;, yu)
-               yu[level] = yu[level] - 1
+              lv.right(right)
+              level = level + 1
+              print(&quot;level&quot;,level)
             else:
-                lv.right(right + left)
-                draw(node - 1, child_length, level, yu,button)
-                # 将偏转的角度，转回
-                lv.left(left)
-                print(&quot;yu&quot;, yu)
-                yu[level] = yu[level] - 1
-        else:
-            if r==1:
-              lv.left(right + left)
-              lv.right(left)
-              print(&quot;yu&quot;, yu)
+              lv.left(right)
+              level = level + 1
+              print(&quot;level&quot;, level)
+            draw(node - 1, child_length,level,yu,button)
+    
+            yu[level] = yu[level] +1
+    
+            if yu[level]&gt;1:
+                # 左转一定角度，画左分支
+    
+                if r==1:
+                   lv.left(right + left)
+                   draw(node - 1, child_length, level, yu,button)
+                   # 将偏转的角度，转回
+                   lv.right(left)
+                   print(&quot;yu&quot;, yu)
+                   yu[level] = yu[level] - 1
+                else:
+                    lv.right(right + left)
+                    draw(node - 1, child_length, level, yu,button)
+                    # 将偏转的角度，转回
+                    lv.left(left)
+                    print(&quot;yu&quot;, yu)
+                    yu[level] = yu[level] - 1
             else:
-                lv.right(right + left)
-                lv.left(left)
-                print(&quot;yu&quot;, yu)
-    lv.penup()
-    #退回到上一级节点顶部位置
-    lv.backward(length)
-
-lv.hideturtle()     #隐藏lv
-lv.speed(0);        #设置画笔移动的速度，0-10 值越小速度越快
-#lv.tracer(0,0)      #设置动画的开关和延迟，均为0
-lv.penup()          #抬起画笔
-lv.left(90)         #默认方向为朝x轴的正方向，左转90度则朝上
-lv.backward(300)#设置lv的位置，朝下移动300
-top=13
-yu=Fibonacci_Recursion(top)
-yu.remove(yu[0])
-print(yu)
-button=0
-draw(top,120,0,yu,button)        #调用函数开始绘制
-lv.exitonclick()
+                if r==1:
+                  lv.left(right + left)
+                  lv.right(left)
+                  print(&quot;yu&quot;, yu)
+                else:
+                    lv.right(right + left)
+                    lv.left(left)
+                    print(&quot;yu&quot;, yu)
+        lv.penup()
+        #退回到上一级节点顶部位置
+        lv.backward(length)
+    
+    lv.hideturtle()     #隐藏lv
+    lv.speed(0);        #设置画笔移动的速度，0-10 值越小速度越快
+    #lv.tracer(0,0)      #设置动画的开关和延迟，均为0
+    lv.penup()          #抬起画笔
+    lv.left(90)         #默认方向为朝x轴的正方向，左转90度则朝上
+    lv.backward(300)#设置lv的位置，朝下移动300
+    top=13
+    yu=Fibonacci_Recursion(top)
+    yu.remove(yu[0])
+    print(yu)
+    button=0
+    draw(top,120,0,yu,button)        #调用函数开始绘制
+    lv.exitonclick()
 </code></pre>
-<p>-- 站在巨人的肩膀上才能进步的更快，加油！</p>
+<p><strong>-- 站在巨人的肩膀上才能进步的更快，加油！</strong></p>
 
             </div>
           </article>
@@ -331,7 +332,7 @@ lv.exitonclick()
 
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
-    <img src="https://zxhlovexm.github.io/images/avatar.png?v=1583760705123" class="no-responsive avatar">
+    <img src="https://zxhlovexm.github.io/images/avatar.png?v=1583762235550" class="no-responsive avatar">
     <div class="text-muted">Gridea </div>
     <div class="social-container">
       
@@ -356,7 +357,7 @@ lv.exitonclick()
         
           
             <li>
-              <a href="https://zxhlovexm.github.io/post/shi-yong-fei-bo-na-qi-shu-lie-hua-yin-xing-shu/">使用斐波那契数列画银杏树</a>
+              <a href="https://zxhlovexm.github.io/post/shi-yong-fei-bo-na-qi-shu-lie-hua-yin-xing-shu/">用斐波那契数列画银杏树</a>
             </li>
           
         
@@ -381,7 +382,7 @@ lv.exitonclick()
     </div>
     <div class="row">
       
-        <a href="https://zxhlovexm.github.io/tag/BDpIjSC9U/" class="badge secondary">
+        <a href="https://zxhlovexm.github.io/tag/BDpIjSC9U/" class="badge success">
           Gridea
         </a>
       
